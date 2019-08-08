@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Display from './Display';
 import Dashboard from './Dashboard';
 
@@ -8,13 +8,18 @@ function App() {
     const [balls, setBalls] = useState(0);
     const [strikes, setStrikes] = useState(0);
 
+    useEffect(() => {
+        if (balls === 4) {
+            clearAll();
+        }
+
+        if (strikes === 3) {
+            clearAll();
+        }
+    }, [balls, strikes]);
+
     function incrementBalls() {
         setBalls(balls + 1);
-
-        if (balls === 3) {
-            clearAll();
-            return;
-        }
     }
 
     function incrementStrikes(foul) {
@@ -23,11 +28,6 @@ function App() {
         }
 
         setStrikes(strikes + 1);
-
-        if (strikes === 2) {
-            clearAll();
-            return;
-        }
     }
 
     function clearAll() {
